@@ -1,0 +1,38 @@
+.btn_loading .btn_cnts {
+  visibility: hidden;
+  opacity: 0;
+}
+
+.btn {
+  position: relative;
+}
+
+.btn_loading::after {
+  content: "";
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  border: 4px solid transparent;
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spinner 1s infinite ease;
+}
+
+@keyframes spinner {
+  from {
+      transform: rotate(0turn);
+  }
+
+  to {
+      transform: rotate(1turn);
+  }
+}
+
+.pointer {
+  cursor: pointer;
+}

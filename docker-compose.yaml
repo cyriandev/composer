@@ -1,0 +1,42 @@
+version: '3.7'
+services:
+  api:
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    command: 'php artisan serve --host=0.0.0.0'
+    environment:
+      DB_HOST: db
+      DB_PORT: 3306
+      DB_DATABASE: more_corp
+      DB_USERNAME: root
+      DB_PASSWORD: pass
+    ports:
+      - 8000:8000
+    volumes:
+      - ./api:/app/api
+    depends_on:
+      - db
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    tty: true
+    ports:
+      - 3000:3000
+    volumes:
+      - ./frontend:/app/frontend
+    depends_on:
+      - api
+
+  db:
+    image: mysql:latest
+    environment:
+      MYSQL_DATABASE: 'more_corp'
+      MYSQL_USER: admin
+      MYSQL_ROOT: admin
+      MYSQL_PASSWORD: admin
+      MYSQL_ROOT_PASSWORD: root
+    volumes:
+      - ./storage/dbdata:/var/lib/mysql
